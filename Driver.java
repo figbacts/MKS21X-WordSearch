@@ -1,50 +1,332 @@
-public class Driver{
-	public static void main(String[] args){
-		WordSearch one = new WordSearch(10,10);
-		System.out.println("Initializing a 11 by 11, WordSearch");
-		System.out.println("Should print out a 10 X 10 array of underscores: ");
-		System.out.println(one);
-		System.out.println("*******************************");
-		System.out.println("attempting to add 'hello' horizontally at (1,4)");
-		System.out.println("should print True: ");
-		System.out.println(one.addWordHorizontal("hello",1,4));
-		System.out.println("should have the second row as: _ _ _ _ h e l l o _");
-		System.out.println(one);
-		System.out.println("*******************************");
-		System.out.println("attempting to add overlapping word 'oS' horizonally at (1,7) where it should not be able to be placed");
-		System.out.println("should print false: ");
-		String old = one + "";
-		System.out.println(one.addWordHorizontal("oS",1,7));
-		if (old.equals(""+one)){
-			System.out.println("Yay you did not modify the WordSearch as you were supposed to!");
-		}else{
-			System.out.println("uh Oh you modified the WordSearch: ");
-			System.out.println(one);
-		}
+public class Driver {
 
-		System.out.println("*******************************");
-		System.out.println("attempting to add overlapping word 'oS' at (1,8)");
-		System.out.println("should print true: ");
-		System.out.println(one.addWordHorizontal("oS",1,8));
-		System.out.println("should have the second row as: _ _ _ _ h e l l o S");
-		System.out.println(one);
-		System.out.println("*******************************");
-		System.out.println("attempting to add 'elloHay' vertically at (1,5)");
-  	System.out.println("should print true: ");
-		System.out.println(one.addWordVertical("elloHay",1,5));
-		System.out.println("should have the sixth column as: _ e l l o H a y _ _");
-		System.out.println(one);
-		System.out.println("*******************************");
-		System.out.println("attempting to add 'LocCabos' vertically at (1,5)");
-		System.out.println("should print false: ");
-		old = one + "";
-		System.out.println(one.addWordVertical("LosCabos", 0, 7));
-		if (old.equals(""+one)){
-			System.out.println("Yay you did not modify the WordSearch as you were supposed to!");
-		}else{
-			System.out.println("uh Oh you modified the WordSearch: ");
-			System.out.println(one);
-		}
-	}
+  public static void main(String[] args) {
+
+    WordSearch WSe = new WordSearch(6,10);
+
+    System.out.println("WordSearch WSe = new WordSearch(6,10)");
+    System.out.println(WSe);
+    /*
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+    */
+
+    System.out.println();
+
+    System.out.println("WSe.addWordHorizontal(\"CLOUD\",0,7)");
+    if(WSe.addWordHorizontal("CLOUD",0,7)) {
+      System.out.println("> addition success.");
+      System.out.println("> TEST CASE - FAIL");
+    } else {
+      System.out.println("> addition failure.");
+      System.out.println("> TEST CASE - PASS");
+    }
+    // > addition failure.
+    // should fail, CLOUD is outside of bounds
+
+    System.out.println(WSe);
+    /*
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+    */
+
+    System.out.println();
+
+    System.out.println("WSe.addWordHorizontal(\"TIFA\",0,5)");
+    if(WSe.addWordHorizontal("TIFA",0,5)) {
+      System.out.println("> addition success.");
+      System.out.println("> TEST CASE - PASS");
+    } else {
+      System.out.println("> addition failure.");
+      System.out.println("> TEST CASE - FAIL");
+    }
+    // > addition success.
+    // should succeed, TIFA is within bounds, no destructive interference
+
+    System.out.println(WSe);
+    /*
+      _ _ _ _ _ T I F A _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+    */
+
+    System.out.println("WSe.addWordHorizontal(\"REDXIII\",0,2)");
+    if(WSe.addWordHorizontal("REDXIII",0,2)) {
+      System.out.println("> addition success.");
+      System.out.println("> TEST CASE - FAIL");
+    } else {
+      System.out.println("> addition failure.");
+      System.out.println("> TEST CASE - PASS");
+    }
+    // > addition failure.
+    // should fail, REDXIII is within bounds, yes destructive interference
+
+    System.out.println(WSe);
+    /*
+      _ _ _ _ _ T I F A _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+    */
+
+    System.out.println("WSe.addWordHorizontal(\"REDXIII\",1,0)");
+    if(WSe.addWordHorizontal("REDXIII",1,0)) {
+      System.out.println("> addition success.");
+      System.out.println("> TEST CASE - PASS");
+    } else {
+      System.out.println("> addition failure.");
+      System.out.println("> TEST CASE - FAIL");
+    }
+    // > addition success.
+    // should succeed, REDXIII is within bounds, no destructive interference
+
+    System.out.println(WSe);
+    /*
+      _ _ _ _ _ T I F A _
+      R E D X I I I _ _ _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+    */
+
+    System.out.println("WSe.addWordHorizontal(\"BARRET\",0,0)");
+    if(WSe.addWordHorizontal("BARRET",0,0)) {
+      System.out.println("> addition success.");
+      System.out.println("> TEST CASE - PASS");
+    } else {
+      System.out.println("> addition failure.");
+      System.out.println("> TEST CASE - FAIL");
+    }
+    // > addition success.
+    // should succeed, BARRET is within bounds, only constructive interference
+
+    System.out.println(WSe);
+    /*
+      B A R R E T I F A _
+      R E D X I I I _ _ _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+      _ _ _ _ _ _ _ _ _ _
+    */
+
+    System.out.println("WSe.addWordVertical(\"YUFFIE\",2,9)");
+    if(WSe.addWordVertical("YUFFIE",2,9)) {
+      System.out.println("> addition success.");
+      System.out.println("> TEST CASE - FAIL");
+    } else {
+      System.out.println("> addition failure.");
+      System.out.println("> TEST CASE - PASS");
+    }
+    // > addition failure.
+    // should fail, YUFFIE is out of bounds
+
+    System.out.println(WSe);
+    /*
+    B A R R E T I F A _
+    R E D X I I I _ _ _
+    _ _ _ _ _ _ _ _ _ _
+    _ _ _ _ _ _ _ _ _ _
+    _ _ _ _ _ _ _ _ _ _
+    _ _ _ _ _ _ _ _ _ _
+    */
+
+    System.out.println("WSe.addWordVertical(\"CLOUD\",1,9)");
+		System.out.println(WSe.addWordVertical("CLOUD",1,9));
+    if(WSe.addWordVertical("CLOUD",1,9)) {
+      System.out.println("> addition success.");
+      System.out.println("> TEST CASE - PASS");
+    } else {
+      System.out.println("> addition failure.");
+      System.out.println("> TEST CASE - FAIL");
+    }
+    // > addition success.
+    // should succeed, CLOUD is within bounds, no destructive interference
+
+    System.out.println(WSe);
+    /*
+      B A R R E T I F A _
+      R E D X I I I _ _ C
+      _ _ _ _ _ _ _ _ _ L
+      _ _ _ _ _ _ _ _ _ O
+      _ _ _ _ _ _ _ _ _ U
+      _ _ _ _ _ _ _ _ _ D
+    */
+
+    System.out.println("WSe.addWordVertical(\"YUFFIE\",0,9)");
+    if(WSe.addWordVertical("YUFFIE",0,9)) {
+      System.out.println("> addition success.");
+      System.out.println("> TEST CASE - FAIL");
+    } else {
+      System.out.println("> addition failure.");
+      System.out.println("> TEST CASE - PASS");
+    }
+    // > addition failure.
+    // should fail, YUFFIE is within bounds, yes destructive interference
+
+    System.out.println(WSe);
+    /*
+      B A R R E T I F A _
+      R E D X I I I _ _ C
+      _ _ _ _ _ _ _ _ _ L
+      _ _ _ _ _ _ _ _ _ O
+      _ _ _ _ _ _ _ _ _ U
+      _ _ _ _ _ _ _ _ _ D
+    */
+
+    System.out.println("WSe.addWordVertical(\"AERITH\",0,1)");
+    if(WSe.addWordVertical("AERITH",0,1)) {
+      System.out.println("> addition success.");
+      System.out.println("> TEST CASE - PASS");
+    } else {
+      System.out.println("> addition failure.");
+      System.out.println("> TEST CASE - FAIL");
+    }
+    // > addition success.
+    // should succeed, AERITH is within bounds, only constructive interference
+
+    System.out.println(WSe);
+    /*
+      B A R R E T I F A _
+      R E D X I I I _ _ C
+      _ R _ _ _ _ _ _ _ L
+      _ I _ _ _ _ _ _ _ O
+      _ T _ _ _ _ _ _ _ U
+      _ H _ _ _ _ _ _ _ D
+    */
+
+    System.out.println("WSe.addWordDiagonal(\"CAIT\",3,2)");
+    if(WSe.addWordDiagonal("CAIT",3,2)) {
+      System.out.println("> addition success.");
+      System.out.println("> TEST CASE - FAIL");
+    } else {
+      System.out.println("> addition failure.");
+      System.out.println("> TEST CASE - PASS");
+    }
+    // > addition failure.
+    // should fail, CAIT is out of bounds
+
+    System.out.println(WSe);
+    /*
+      B A R R E T I F A _
+      R E D X I I I _ _ C
+      _ R _ _ _ _ _ _ _ L
+      _ I _ _ _ _ _ _ _ O
+      _ T _ _ _ _ _ _ _ U
+      _ H _ _ _ _ _ _ _ D
+    */
+
+    System.out.println("WSe.addWordDiagonal(\"CAIT\",2,2)");
+    if(WSe.addWordDiagonal("CAIT",2,2)) {
+      System.out.println("> addition success.");
+      System.out.println("> TEST CASE - PASS");
+    } else {
+      System.out.println("> addition failure.");
+      System.out.println("> TEST CASE - FAIL");
+    }
+    // > addition success
+    // should succeed, CAIT is within bounds, no destructive interference
+
+    System.out.println(WSe);
+    /*
+      B A R R E T I F A _
+      R E D X I I I _ _ C
+      _ R C _ _ _ _ _ _ L
+      _ I _ A _ _ _ _ _ O
+      _ T _ _ I _ _ _ _ U
+      _ H _ _ _ T _ _ _ D
+    */
+
+    System.out.println("WSe.addWordDiagonal(\"SITH\",2,3)");
+    if(WSe.addWordDiagonal("SITH",2,3)) {
+      System.out.println("> addition success.");
+      System.out.println("> TEST CASE - PASS");
+    } else {
+      System.out.println("> addition failure.");
+      System.out.println("> TEST CASE - FAIL");
+    }
+    // > addition success
+    // should succeed, SITH is within bounds, no destructive interference
+
+    System.out.println(WSe);
+    /*
+      B A R R E T I F A _
+      R E D X I I I _ _ C
+      _ R C S _ _ _ _ _ L
+      _ I _ A I _ _ _ _ O
+      _ T _ _ I T _ _ _ U
+      _ H _ _ _ T H _ _ D
+    */
+
+    System.out.println("WSe.addWordDiagonal(\"CAIT\",2,0)");
+    if(WSe.addWordDiagonal("CAIT",2,0)) {
+      System.out.println("> addition success.");
+      System.out.println("> TEST CASE - FAIL");
+    } else {
+      System.out.println("> addition failure.");
+      System.out.println("> TEST CASE - PASS");
+    }
+    // > addition failure
+    // should fail, CAIT is within bounds, yes destructive interference
+
+    System.out.println(WSe);
+    /*
+      B A R R E T I F A _
+      R E D X I I I _ _ C
+      _ R C S _ _ _ _ _ L
+      _ I _ A I _ _ _ _ O
+      _ T _ _ I T _ _ _ U
+      _ H _ _ _ T H _ _ D
+    */
+
+    System.out.println("WSe.addWordDiagonal(\"TIFA\",0,5)");
+    if(WSe.addWordDiagonal("TIFA",0,5)) {
+      System.out.println("> addition success.");
+      System.out.println("> TEST CASE - PASS");
+    } else {
+      System.out.println("> addition failure.");
+      System.out.println("> TEST CASE - FAIL");
+    }
+    // > addition success
+    // should succeed, TIFA is within bounds, only constructive interference
+
+    System.out.println(WSe);
+    /*
+      B A R R E T I F A _
+      R E D X I I I _ _ C
+      _ R C S _ _ _ F _ L
+      _ I _ A I _ _ _ A O
+      _ T _ _ I T _ _ _ U
+      _ H _ _ _ T H _ _ D
+    */
+
+    //  System.out.println("WSe.clear()");
+     // WSe.clear();
+    //
+     // System.out.println(WSe);
+    // /*
+    //   _ _ _ _ _ _ _ _ _ _
+    //   _ _ _ _ _ _ _ _ _ _
+    //   _ _ _ _ _ _ _ _ _ _
+    //   _ _ _ _ _ _ _ _ _ _
+    //   _ _ _ _ _ _ _ _ _ _
+    //   _ _ _ _ _ _ _ _ _ _
+    // */
+
+  }
 
 }
