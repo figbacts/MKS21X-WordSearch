@@ -1,9 +1,16 @@
+import java.util.*; //random, scanner, arraylist
+import java.io.*; //file, filenotfoundexception
+import java.util.Random;
 public class WordSearch{
     private char[][]data;
-    public WordSearch(int rows,int cols){
-
+    public WordSearch(int rows,int cols, String fileName){
       data = new char[rows][cols];
       clear();
+      File f = new file(fileName);
+      while (f.hasNextLine()){
+        System.out.println(f.nextLine());
+      }
+
        }
     private void clear(){
       for (int c = 0; c < data.length; c ++){
@@ -16,10 +23,25 @@ public class WordSearch{
       String ans = "";
       for (int c = 0; c < data.length; c ++){
         for (int t = 0; t < data[c].length; t ++){
+          if (t == 0){
+            ans = ans + "|";
+          }
+          if (t == data[c].length){
+            ans = ans + "|";
+          }
+          if (t == data[c].length -1){
+            ans = ans + data[c][t];
+          }
+          else {
           ans = ans + data[c][t] + " ";
+        }
+          if (t == data[c].length -1 ){
+            ans = ans + "|";
+          }
         }
         ans = ans + "\n";
       }
+      ans = ans + "Words: ";
       return ans;
     }
     public boolean addWordHorizontal(String word,int row, int col){
@@ -97,5 +119,44 @@ public class WordSearch{
       }
       return true;
     }
-
+    public boolean addWord (String word, int r, int c, int rowIncrement, int colIncrement){
+      if (rowIncrement == 0 && colIncrement == 0){
+        return false;}
+      int leng = word.length();
+      if (colIncrement > 0){
+      if (c + leng > data[r].length){
+        return false;
+      }
+    }
+    if (colIncrement < 0){
+    if (c - leng < 0){
+      return false;
+    }
   }
+  if (rowIncrement > 0){
+  if (r + leng > data.length){
+    return false;
+  }
+}
+if (rowIncrement < 0){
+if (r - leng < 0){
+  return false;
+}
+}
+      for (int i = 0; i < leng; i++){
+        if (data[r + (rowIncrement * i)][c + (colIncrement * i)] == '-')
+        {}
+        else {
+          if (data[r + (rowIncrement * i)][c + (colIncrement * i)] != word.charAt(i)){
+            System.out.println ("6");
+            return false;
+          }
+        }
+      }
+      for (int i = 0; i < leng; i++){
+        data[r + (rowIncrement * i)][c + (colIncrement * i)] = word.charAt(i);
+      }
+      return true;
+      }
+
+    }
