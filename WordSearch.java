@@ -5,25 +5,8 @@ public class WordSearch{
     private char[][]data;
     private ArrayList<String> words = new ArrayList<>();
     private ArrayList<String> wordsadded = new ArrayList<>();
-    private Random rng = new Random();
-    private int seed = rng.nextInt() & 1000;
-    public WordSearch(int rows,int cols, String filename){
-      data = new char[rows][cols];
-      clear();
-      try{
-        File f = new File(filename);
-        Scanner in = new Scanner(f);
-        while (in.hasNext()){
-          words.add(in.next());
-        }
-        addAllWords();
-      }
-      catch(FileNotFoundException e){
-        System.out.println ("File not found: " + filename);
-        System.exit(1);
-      }
-       }
-       public WordSearch(int rows,int cols, String filename, int randSeed){
+    private int seed = 0;
+       public WordSearch(int rows,int cols, String filename, int randSeed, boolean answer){
          seed = randSeed;
          data = new char[rows][cols];
          clear();

@@ -1,9 +1,12 @@
 public class Driver {
 
   public static void main(String[] args) {
-
-    WordSearch WSe = new WordSearch(10,10,"words.txt");
-    System.out.println (WSe);
+    if (args.length > 4){
+      WordSearch ans = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]),false);
+    }
+    WordSearch ans = new WordSearch (20, 20, "words.txt", 101, false);
+    WordSearch WSe = new WordSearch(10,10,"words.txt",101,false);
+    System.out.println (ans);
 /*
     System.out.println("WordSearch WSe = new WordSearch(6,10)");
     System.out.println(WSe);
