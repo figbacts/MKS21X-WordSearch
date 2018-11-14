@@ -3,15 +3,55 @@ import java.io.*; //file, filenotfoundexception
 import java.util.Random;
 public class WordSearch{
     private char[][]data;
-    public WordSearch(int rows,int cols, String fileName){
+    private ArrayList<String> words = new ArrayList<>();
+    private ArrayList<String> wordsadded = new ArrayList<>();
+    private Random rng = new Random();
+    private int seed = rng.nextInt() & 1000;
+    public WordSearch(int rows,int cols, String filename){
       data = new char[rows][cols];
       clear();
-      File f = new file(fileName);
-      while (f.hasNextLine()){
-        System.out.println(f.nextLine());
+      try{
+        File f = new File(filename);
+        Scanner in = new Scanner(f);
+        while (in.hasNext()){
+          words.add(in.next());
+        }
+        addAllWords();
+      }
+      catch(FileNotFoundException e){
+        System.out.println ("File not found: " + filename);
+        System.exit(1);
+      }
+       }
+    private void addAllWords(){
+      Random fake = new Random(seed);
+      int index = fake.nextInt() % words.size();
+      int rinc = fake.nextInt() % 2;
+      int cinc = fake.nextInt() % 2;
+      for (int i = 0; i < 40; i ++){
+        if (words.size() != 0){
+        index = fake.nextInt() % words.size();}
+        index = abval(index);
+        rinc = fake.nextInt() % 2;
+        cinc = fake.nextInt() % 2;
+        for (int c = 0; c < 10; c ++){
+          if (addWord(words.get(index), abval(fake.nextInt() % data.length), abval(fake.nextInt() % data[0].length),rinc,cinc)){
+            wordsadded.add(words.remove(index));
+            c = 10;
+          }
+        }
+        if (words.size() == 0) {
+          i = 40;
+        }
       }
 
-       }
+
+    }
+    private int abval(int num){
+      if (num < 0){
+      return num * -1;}
+      return num;
+    }
     private void clear(){
       for (int c = 0; c < data.length; c ++){
         for (int t = 0; t < data[c].length; t ++){
@@ -41,7 +81,7 @@ public class WordSearch{
         }
         ans = ans + "\n";
       }
-      ans = ans + "Words: ";
+      ans = ans + "Words: " + wordsadded;
       return ans;
     }
     public boolean addWordHorizontal(String word,int row, int col){
@@ -148,7 +188,6 @@ if (r - leng < 0){
         {}
         else {
           if (data[r + (rowIncrement * i)][c + (colIncrement * i)] != word.charAt(i)){
-            System.out.println ("6");
             return false;
           }
         }
