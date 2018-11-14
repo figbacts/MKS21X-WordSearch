@@ -23,6 +23,23 @@ public class WordSearch{
         System.exit(1);
       }
        }
+       public WordSearch(int rows,int cols, String filename, int randSeed){
+         seed = randSeed;
+         data = new char[rows][cols];
+         clear();
+         try{
+           File f = new File(filename);
+           Scanner in = new Scanner(f);
+           while (in.hasNext()){
+             words.add(in.next());
+           }
+           addAllWords();
+         }
+         catch(FileNotFoundException e){
+           System.out.println ("File not found: " + filename);
+           System.exit(1);
+         }
+          }
     private void addAllWords(){
       Random fake = new Random(seed);
       int index = fake.nextInt() % words.size();
@@ -45,8 +62,9 @@ public class WordSearch{
         }
       }
 
-
+System.out.println (seed);
     }
+
     private int abval(int num){
       if (num < 0){
       return num * -1;}
@@ -159,7 +177,7 @@ public class WordSearch{
       }
       return true;
     }
-    public boolean addWord (String word, int r, int c, int rowIncrement, int colIncrement){
+    private boolean addWord (String word, int r, int c, int rowIncrement, int colIncrement){
       if (rowIncrement == 0 && colIncrement == 0){
         return false;}
       int leng = word.length();
