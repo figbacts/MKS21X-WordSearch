@@ -2,13 +2,26 @@ import java.util.*; //random, scanner, arraylist
 import java.io.*; //file, filenotfoundexception
 import java.util.Random;
 public class WordSearch{
+  public static void main(String[] args) {
+    // if(args.length = 0 || args.length = 1 args.length = 2){
+    //   System.out.println("java WordSearch rows(>0), cols (>0), filename");
+    //   System.exit(1);
+    // }
+    WordSearch ans = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]),false);
+    System.out.println(ans);
+  }
     private char[][]data;
     private ArrayList<String> words = new ArrayList<>();
     private ArrayList<String> wordsadded = new ArrayList<>();
     private int seed = 0;
        public WordSearch(int rows,int cols, String filename, int randSeed, boolean answer){
-         seed = randSeed;
-         data = new char[rows][cols];
+         try{
+         data = new char[rows][cols];}
+         catch(NegativeArraySizeException e){
+           System.out.println("\njava WordSearch rows(>0), cols (>0), filename(must exist and be in the same directory), seed(Must be between 1 and 10,000), answer(type in key if you want the answerkey)");
+           System.exit(1);
+         }
+        seed = randSeed;
          clear();
          try{
            File f = new File(filename);
