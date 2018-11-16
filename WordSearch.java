@@ -7,8 +7,24 @@ public class WordSearch{
     //   System.out.println("java WordSearch rows(>0), cols (>0), filename");
     //   System.exit(1);
     // }
-    WordSearch ans = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]),false);
+    Random number = new Random();
+    if (args.length < 3){
+      System.out.println("\njava WordSearch rows, cols, filename, seed(Optional), answer(Optional\nrows: >0\ncols: >0\nfilename: Must exist and be in the same directory\nseed: 0<seed<10,000\nanswer: type in key if you quieres the answer key");
+      System.exit(1);
+    }
+    if (args.length == 3){
+    WordSearch ans = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]), args[2], number.nextInt() % 100, false);
     System.out.println(ans);
+}
+    if (args.length == 5 && args[4].equals("key")){
+    WordSearch anss = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]),false);
+  System.out.println(anss);
+  }
+  if (args.length == 4){
+    WordSearch ansss = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]),false);
+      System.out.println(ansss);
+  }
+
   }
     private char[][]data;
     private ArrayList<String> words = new ArrayList<>();
@@ -18,7 +34,7 @@ public class WordSearch{
          try{
          data = new char[rows][cols];}
          catch(NegativeArraySizeException e){
-           System.out.println("\njava WordSearch rows(>0), cols (>0), filename(must exist and be in the same directory), seed(Must be between 1 and 10,000), answer(type in key if you want the answerkey)");
+           System.out.println("\njava WordSearch rows, cols, filename, seed(Optional), answer(Optional\nrows: >0\ncols: >0\nfilename: Must exist and be in the same directory\nseed: 0<seed<10,000\nanswer: type in key if you quieres the answer key");
            System.exit(1);
          }
         seed = randSeed;
@@ -32,7 +48,7 @@ public class WordSearch{
            addAllWords();
          }
          catch(FileNotFoundException e){
-           System.out.println ("File not found: " + filename);
+           System.out.println ("\njava WordSearch rows, cols, filename, seed(Optional), answer(Optional\nrows: >0\ncols: >0\nfilename: Must exist and be in the same directory\nseed: 0<seed<10,000\nanswer: type in key if you quieres the answer key");
            System.exit(1);
          }
           }
