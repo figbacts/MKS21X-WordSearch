@@ -4,6 +4,8 @@ public class Driver {
 
     WordSearch WSe = new WordSearch(10,10,"words.txt");
     System.out.println (WSe);
+
+
 /*
     System.out.println("WordSearch WSe = new WordSearch(6,10)");
     System.out.println(WSe);
