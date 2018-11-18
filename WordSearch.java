@@ -2,30 +2,48 @@ import java.util.*; //random, scanner, arraylist
 import java.io.*; //file, filenotfoundexception
 import java.util.Random;
 public class WordSearch{
+  public static void main(String[] args) {
+    // if(args.length = 0 || args.length = 1 args.length = 2){
+    //   System.out.println("java WordSearch rows(>0), cols (>0), filename");
+    //   System.exit(1);
+    // }
+    Random number = new Random();
+    if (args.length < 3){
+      System.out.println("\njava WordSearch rows, cols, filename, seed(Optional), answer(Optional\nrows: >0\ncols: >0\nfilename: Must exist and be in the same directory\nseed: 0<seed<10,000\nanswer: type in key if you quieres the answer key");
+      System.exit(1);
+    }
+    if (args.length == 3){
+    WordSearch ans = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]), args[2], number.nextInt() % 10000, false);
+    System.out.println(ans);
+}
+    if (args.length == 5 && args[4].equals("key")){
+    WordSearch anss = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]),true);
+  System.out.println(anss);
+  }
+  if (args.length == 5 && !(args[4].equals("key"))){
+  WordSearch anssss = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]),false);
+System.out.println(anssss);
+}
+
+  if (args.length == 4){
+    WordSearch ansss = new WordSearch(Integer.parseInt(args[0]),Integer.parseInt(args[1]), args[2], Integer.parseInt(args[3]),false);
+      System.out.println(ansss);
+  }
+
+
+  }
     private char[][]data;
     private ArrayList<String> words = new ArrayList<>();
     private ArrayList<String> wordsadded = new ArrayList<>();
-    private Random rng = new Random();
-    private int seed = rng.nextInt() & 1000;
-    public WordSearch(int rows,int cols, String filename){
-      data = new char[rows][cols];
-      clear();
-      try{
-        File f = new File(filename);
-        Scanner in = new Scanner(f);
-        while (in.hasNext()){
-          words.add(in.next());
-        }
-        addAllWords();
-      }
-      catch(FileNotFoundException e){
-        System.out.println ("File not found: " + filename);
-        System.exit(1);
-      }
-       }
-       public WordSearch(int rows,int cols, String filename, int randSeed){
-         seed = randSeed;
-         data = new char[rows][cols];
+    private int seed = 0;
+       public WordSearch(int rows,int cols, String filename, int randSeed, boolean answer){
+         try{
+         data = new char[rows][cols];}
+         catch(NegativeArraySizeException e){
+           System.out.println("\njava WordSearch rows, cols, filename, seed(Optional), answer(Optional\nrows: >0\ncols: >0\nfilename: Must exist and be in the same directory\nseed: 0<seed<10,000\nanswer: type in key if you quieres the answer key");
+           System.exit(1);
+         }
+        seed = randSeed;
          clear();
          try{
            File f = new File(filename);
@@ -34,9 +52,21 @@ public class WordSearch{
              words.add(in.next());
            }
            addAllWords();
+           if (answer == false){
+             for (int r = 0; r < data.length; r ++){
+               for(int c = 0; c < data[r].length; c++){
+                 if (data[r][c] == '-'){
+                   Random ran = new Random();
+                   data[r][c] = (char)('A' + abval(ran.nextInt() % 26));
+
+                 }
+               }
+             }
+           }
+
          }
          catch(FileNotFoundException e){
-           System.out.println ("File not found: " + filename);
+           System.out.println ("\njava WordSearch rows, cols, filename, seed(Optional), answer(Optional\nrows: >0\ncols: >0\nfilename: Must exist and be in the same directory\nseed: 0<seed<10,000\nanswer: type in key if you quieres the answer key");
            System.exit(1);
          }
           }
@@ -61,8 +91,6 @@ public class WordSearch{
           i = 40;
         }
       }
-
-System.out.println (seed);
     }
 
     private int abval(int num){
@@ -99,7 +127,7 @@ System.out.println (seed);
         }
         ans = ans + "\n";
       }
-      ans = ans + "Words: " + wordsadded;
+      ans = ans + "Words: " + wordsadded + " " + "(seed: " + seed + ")";
       return ans;
     }
     public boolean addWordHorizontal(String word,int row, int col){
