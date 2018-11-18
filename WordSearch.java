@@ -40,7 +40,7 @@ System.out.println(anssss);
          try{
          data = new char[rows][cols];}
          catch(NegativeArraySizeException e){
-           System.out.println("\njava WordSearch rows, cols, filename, seed(Optional), answer(Optional\nrows: >0\ncols: >0\nfilename: Must exist and be in the same directory\nseed: 0<seed<10,000\nanswer: type in key if you quieres the answer key");
+           System.out.println("\njava WordSearch rows, cols, filename, seed(Optional), answer(Optional)\nrows: >0\ncols: >0\nfilename: Must exist and be in the same directory\nseed: 0<seed<10,000\nanswer: type in key if you quieres the answer key");
            System.exit(1);
          }
         seed = randSeed;
@@ -66,7 +66,7 @@ System.out.println(anssss);
 
          }
          catch(FileNotFoundException e){
-           System.out.println ("\njava WordSearch rows, cols, filename, seed(Optional), answer(Optional\nrows: >0\ncols: >0\nfilename: Must exist and be in the same directory\nseed: 0<seed<10,000\nanswer: type in key if you quieres the answer key");
+           System.out.println ("\njava WordSearch rows, cols, filename, seed(Optional), answer(Optional)\nrows: >0\ncols: >0\nfilename: Must exist and be in the same directory\nseed: 0<seed<10,000\nanswer: type in key if you quieres the answer key");
            System.exit(1);
          }
           }
