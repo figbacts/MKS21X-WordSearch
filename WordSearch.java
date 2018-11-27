@@ -7,6 +7,8 @@ public class WordSearch{
     //   System.out.println("java WordSearch rows(>0), cols (>0), filename");
     //   System.exit(1);
     // }
+    // Testing Code anywhere 
+    
     Random number = new Random();
     if (args.length < 3){
       System.out.println("\njava WordSearch rows, cols, filename, seed(Optional), answer(Optional\nrows: >0\ncols: >0\nfilename: Must exist and be in the same directory\nseed: 0<seed<10,000\nanswer: type in key if you quieres the answer key");
